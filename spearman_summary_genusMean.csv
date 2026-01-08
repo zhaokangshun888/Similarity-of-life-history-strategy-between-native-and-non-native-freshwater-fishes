@@ -1,0 +1,9 @@
+"Trait","Method","Mean_Spearman","SD_Spearman"
+"Life.span","GenusMean",0.885503166882352,0.00874395670582142
+"Fecundity","GenusMean",0.953914722960829,0.00351067255720116
+"Parental.care","GenusMean",0.938863384400146,0.0055216472293757
+"Age.at.maturation","GenusMean",0.922020776183983,0.00528907894171917
+"Offspring.size","GenusMean",0.987131318373886,0.00175107541406112
+"Max.total.length","GenusMean",NA,NA
+"Trophic.level","GenusMean",NA,NA
+"K.value","GenusMean",0.840567513269455,0.00838701231976263
