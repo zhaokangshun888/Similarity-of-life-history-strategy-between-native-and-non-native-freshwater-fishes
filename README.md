@@ -12,7 +12,7 @@ R software version 4.4.2 or higher
 Install the required packages in RStudio as listed in the code. No specific additional installation steps are needed.
 
 #Demo#
-No demo is provided; please follow the instructions below to run the code on the provided data.
+No demo is provided; please follow the instructions beside the code to run the R scripts with our data.
 
 #Instructions for Use#
 Refer to the comments within the code files for instructions on how to run the R scripts with our data.
