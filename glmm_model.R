@@ -18,13 +18,13 @@ head(data)
 hist(data$Similarity_Centroid)
 
 ######Standardize fixed effect variables (z-score) 
-predictors <- c("MAT", "TS", "DIS", "RAD", "GDP", "DOF", "NSR", "RBA", "CSI","NNSR")
+predictors <- c("MAT", "TS", "DIS", "RAD", "GDP", "NSR", "RBA", "CSI")
 data[predictors] <- scale(data[predictors])
 
 ###### VIF check
 #models examining the effects of environmental and anthropogenic factors on similarity between native and non-native freshwater fishes at basin scale
 vif_Model1 <- lm(Similarity_Centroid ~ MAT + TS + DIS + RAD + NSR + RBA + GDP + CSI, data = data)
-vif(VIF_Model1)
+vif(vif_Model1)
 
 vif_Model2 <- lm(Similarity_Centroid ~ MAT + TS + DIS + RAD + NSR + RBA + GDP + CSI + 
                    MAT*TS + DIS*RAD + MAT*DIS + MAT*RAD + TS*RAD, data = data) #TS*DIS was removed due to its high VIF
@@ -122,5 +122,6 @@ p+geom_line(size=1.5,colour="#146C36")+theme_bw()+
   theme(legend.position = "top",plot.title = element_blank())
 
 ggsave("Marginal effect TS and similarity.pdf", width = 5.5, height = 5)
+
 
 
