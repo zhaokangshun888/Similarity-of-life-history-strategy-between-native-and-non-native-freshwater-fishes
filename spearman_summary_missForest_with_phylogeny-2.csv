@@ -1,0 +1,8 @@
+Trait,Method,Mean_Spearman,SD_Spearman
+Age.at.maturation,missForest_phylogeny,0.94,0.005
+Fecundity,missForest_phylogeny,0.96,0.003
+K.value,missForest_phylogeny,0.924,0.005
+Life.span,missForest_phylogeny,0.926,0.005
+Max.total.length,missForest_phylogeny,0.937,0.004
+Offspring.size,missForest_phylogeny,0.969,0.003
+Parental.care,missForest_phylogeny,0.97,0.004

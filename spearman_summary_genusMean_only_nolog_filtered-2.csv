@@ -1,0 +1,9 @@
+Trait,Method,Mean_Spearman,SD_Spearman
+Age.at.maturation,Genus_Family_Order_Mean,0.916,0.006
+Fecundity,Genus_Family_Order_Mean,0.947,0.004
+K.value,Genus_Family_Order_Mean,0.823,0.007
+Life.span,Genus_Family_Order_Mean,0.881,0.007
+Max.total.length,Genus_Family_Order_Mean,0.852,0.007
+Offspring.size,Genus_Family_Order_Mean,0.979,0.003
+Parental.care,Genus_Family_Order_Mean,0.979,0.003
+,,0.911,0.005
