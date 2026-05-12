@@ -142,7 +142,6 @@ m_native.NE <- Hmsc(
 
 models = list()
 models$native = m_native
-#models$native.NS = m_native.NS
 models$native.NE = m_native.NE
 ################################################################################################### model-Non-native
 # Plot point distribution
@@ -209,7 +208,6 @@ m_non_native.NE <- Hmsc(
 )
 
 models$non_native = m_non_native
-#models$non_native.NS = m_non_native.NS
 models$non_native.NE = m_non_native.NE
 
 save(models,file = "models/unfitted_models.RData")
