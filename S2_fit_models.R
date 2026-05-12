@@ -48,8 +48,8 @@ library(Hmsc)
 
 load(file=file.path(modelDir,"unfitted_models.RData"))
 nm = length(models)
-samples_list = c(5,250,250,250,250,250) 
-thin_list = c(1,1,10,100,1000,10000)
+samples_list = c(5,250,250,250,250) 
+thin_list = c(1,1,10,100,1000)
 nChains = 4 
 if(is.null(nParallel)) nParallel = nChains
 Lst = 1
