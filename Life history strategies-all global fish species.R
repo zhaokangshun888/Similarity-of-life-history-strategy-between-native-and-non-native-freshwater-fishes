@@ -1,6 +1,5 @@
-
 ########################################################################################## Archetypal analysis (AA)
-setwd("xx")
+setwd("xxx")
 
 library(ggplot2)
 library(factoextra)
@@ -10,9 +9,9 @@ library(archetypes)  # Archetypal Analysis (AA)
 library(dplyr)
 
 # Load data
-trait_data <- read.csv("imputed_means_new_tree-BM.csv", header = TRUE)
+trait_data <- read.csv("imputed_trait_data_missForest_with_phylogeny-2.csv", header = TRUE)
 
-# Reset the row name
+# Reset the row name-1
 rownames(trait_data) <- trait_data$species
 head(trait_data)
 traits <- names(trait_data)[2:ncol(trait_data)] 
@@ -84,7 +83,7 @@ final_results$strategies <- factor(final_results$archetype,
                                 levels = c(1, 2, 3),
                                 labels = c("Equilibrium","Opportunistic", "Periodic"))
 # Save result
-write.csv(final_results, "archetype_results_robust.csv", row.names = FALSE)
+write.csv(final_results, "archetype_results_robust-2.csv", row.names = FALSE)
 dev.off()
 
 png("screeplot_aa_result.png", width = 600, height = 600, res = 150)
@@ -124,7 +123,6 @@ loadings_df$trait <- recode(rownames(loadings_df),
                             "Age.at.maturation" = "Age at maturation",
                             "Offspring.size" = "Offspring size",
                             "Max.total.length" = "Max total length",
-                            "Trophic.level" = "Trophic level",
                             "K.value" = "growth coefficient")
 # Plot PCA result
 # Set cluster name 
