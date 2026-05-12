@@ -76,8 +76,8 @@ if (!dir.exists(resultDir)) dir.create(resultDir)
 library(Hmsc)
 library(ggplot2)
 
-samples_list = c(5,250,250,250,250,250) 
-thin_list = c(1,1,10,100,1000,10000)    
+samples_list = c(5,250,250,250,250) 
+thin_list = c(1,1,10,100,1000)    
 nst = length(thin_list)
 nChains = 4
 
