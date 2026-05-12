@@ -3,7 +3,7 @@
 rm(list=ls())  
 setwd("XX")
 # Load data 读取数据
-data <- read.csv("Basin_Strategy_with_predictors_model.csv")
+data <- read.csv("Basin_Strategy_with_predictors_model-2.csv")
 
 summary(data)
 head(data)
@@ -16,8 +16,8 @@ data_native <- data[data$Native.Exotic.Status == "Native", ]
 data_non_native <- data[data$Native.Exotic.Status == "Non-native", ]
 
 # Standardize fixed effect variables (z-score)
-native_predictors <- c("MAT", "TS", "DIS", "RAD", "GDP", "CSI", "NSR", "RBA")
-non_native_predictors <- c("MAT", "TS", "DIS", "RAD", "GDP", "CSI", "NSR", "RBA")
+native_predictors <- c("MAT", "TS", "PRD", "SRD","GDP", "CSI", "NSR", "RBA")
+non_native_predictors <- c("MAT", "TS", "PRD", "SRD","GDP", "CSI", "NSR", "RBA")
 
 data_native[native_predictors] <- scale(data_native[native_predictors])
 data_non_native[non_native_predictors] <- scale(data_non_native[non_native_predictors])
@@ -99,8 +99,6 @@ rownames(lonlat) <- data_native_clr$Basin.Name
 rL.basin <- HmscRandomLevel(sData = lonlat, longlat = TRUE, sMethod = "NNGP")
 rL.basin <- setPriors(rL.basin, nfMin = 1,nfMax = 1)
 
-rL.basin.NS <- HmscRandomLevel(units = levels(studyDesign$basin))
-rL.basin.NS <- setPriors(rL.basin.NS, nfMin = 1,nfMax = 1)
 
 # Response variables (strategies after CLR transformation)
 Y <- cbind(
@@ -114,14 +112,14 @@ colnames(Y) = c("E","O","P")
 XData <- data.frame(
   MAT = data_native_clr$MAT,
   TS = data_native_clr$TS,
-  DIS = data_native_clr$DIS,
-  RAD = data_native_clr$RAD,
+  PRD = data_native_clr$PRD,
+  SRD = data_native_clr$SRD,
   NSR = data_native_clr$NSR,
   RBA = data_native_clr$RBA,
   GDP = data_native_clr$GDP,
   CSI = data_native_clr$CSI)
 
-XFormula <- ~ MAT + TS + DIS + RAD + NSR + RBA + GDP + CSI
+XFormula <- ~ MAT + TS + PRD + SRD + NSR + RBA + GDP + CSI
 
 # Build HMSC model
 m_native <- Hmsc(
@@ -132,18 +130,20 @@ m_native <- Hmsc(
   ranLevels = list(ecoregion = rL.ecoregion, basin = rL.basin)
 )
 
-m_native.NS <- Hmsc(
+
+#### add model without ecoregion, but keep spatial basin
+m_native.NE <- Hmsc(
   Y = Y,
   XData = XData,
   XFormula = XFormula,
   studyDesign = studyDesign,
-  ranLevels = list(ecoregion = rL.ecoregion, basin = rL.basin.NS)
+  ranLevels = list(basin = rL.basin)
 )
 
 models = list()
 models$native = m_native
-models$native.NS = m_native.NS
-
+#models$native.NS = m_native.NS
+models$native.NE = m_native.NE
 ################################################################################################### model-Non-native
 # Plot point distribution
 plot(data_non_native_clr$Median.Longitude, data_non_native_clr$Median.Latitude,
@@ -167,8 +167,6 @@ rownames(lonlat) <- data_non_native_clr$Basin.Name
 rL.basin <- HmscRandomLevel(sData = lonlat, longlat = TRUE, sMethod = "NNGP")
 rL.basin <- setPriors(rL.basin, nfMin = 1,nfMax = 1)
 
-rL.basin.NS <- HmscRandomLevel(units = levels(studyDesign$basin))
-rL.basin.NS <- setPriors(rL.basin.NS, nfMin = 1,nfMax = 1)
 
 # Response variables (strategies after CLR transformation)
 Y <- cbind(
@@ -182,14 +180,14 @@ colnames(Y) = c("E","O","P")
 XData <- data.frame(
   MAT = data_non_native_clr$MAT,
   TS = data_non_native_clr$TS,
-  DIS = data_non_native_clr$DIS,
-  RAD = data_non_native_clr$RAD,
+  PRD = data_non_native_clr$PRD,
+  SRD = data_non_native_clr$SRD,
   NSR = data_non_native_clr$NSR,
   RBA = data_non_native_clr$RBA,
   GDP = data_non_native_clr$GDP,
   CSI = data_non_native_clr$CSI)
 
-XFormula <- ~ MAT + TS + DIS + RAD + NSR + RBA + GDP + CSI
+XFormula <- ~ MAT + TS + PRD + SRD + NSR + RBA + GDP + CSI
 
 # Build HMSC model
 m_non_native <- Hmsc(
@@ -200,15 +198,19 @@ m_non_native <- Hmsc(
   ranLevels = list(ecoregion = rL.ecoregion, basin = rL.basin)
 )
 
-m_non_native.NS <- Hmsc(
+
+# add model without ecoregion, but keep spatial basin
+m_non_native.NE <- Hmsc(
   Y = Y,
   XData = XData,
   XFormula = XFormula,
   studyDesign = studyDesign,
-  ranLevels = list(ecoregion = rL.ecoregion, basin = rL.basin.NS)
+  ranLevels = list(basin = rL.basin)
 )
 
 models$non_native = m_non_native
-models$non_native.NS = m_non_native.NS
+#models$non_native.NS = m_non_native.NS
+models$non_native.NE = m_non_native.NE
 
 save(models,file = "models/unfitted_models.RData")
+
