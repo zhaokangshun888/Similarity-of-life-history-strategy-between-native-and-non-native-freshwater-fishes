@@ -31,7 +31,6 @@ dev.off()
 
 
 ###################################################################
-library(Hmsc)
 load("models/models_thin_1000_samples_250_chains_4.Rdata")
 
 pdf("EOP_predictions_colored.pdf")
